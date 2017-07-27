@@ -1,6 +1,9 @@
 #!/bin/bash
 
-verifica_root ()
+
+# Verifica se o usuario e o ROOT pelo id
+
+root_verify ()
 {
 	if [ $(id -u) -ne 0 ]
 	then 
@@ -8,6 +11,12 @@ verifica_root ()
 	exit 0
 	fi
 }
+
+# Funcao para mostrar um contador na tela
+# Recebe 3 parametros
+# 1 -> numero de repeticoes
+# 2 -> tempo entre as repeticoes em segundos
+# 3 -> caracter mostrado
 
 timer ()
 { 
@@ -22,7 +31,10 @@ timer ()
 	done
 }
 
-excluir_old_kernels ()
+# Funcao que executa a remocao dos kernels antigos
+# PS.: NAO REMOVE O KERNEL ATUAL
+
+exclude_old_kernels ()
 {
 	
 	echo -e "Deseja excluir os kernels antigos encontrados ( S|N )?"
@@ -51,7 +63,9 @@ excluir_old_kernels ()
 	esac
 }
 
-listar_old_kernels ()
+# Lista os Kernels existentes no sistema
+
+k_list ()
 {
 	echo "Listando os Kernels"
 	timer 5 0.7 '.'
@@ -62,9 +76,9 @@ listar_old_kernels ()
 
 main()
 { 
-	verifica_root
-	listar_old_kernels
-	excluir_old_kernels
+	root_verify
+	k_list	
+	exclude_old_kernels
 }
 main
 
